@@ -279,6 +279,7 @@ class MainWindow(QMainWindow):
 
         ## Navigation
         self.ui.action_Add_Image.triggered.connect(self.addMediaFile)
+        self.ui.action_Add_Images.triggered.connect(self.addMediaFiles)
         self.ui.actionNext.      triggered.connect(self.labeltool.gotoNext)
         self.ui.actionPrevious.  triggered.connect(self.labeltool.gotoPrevious)
         self.ui.actionZoom_In.   triggered.connect(functools.partial(self.view.setScaleRelative, 1.2))
@@ -392,6 +393,37 @@ class MainWindow(QMainWindow):
                 return self.labeltool.addImageFile(fname)
 
         return self.labeltool.addVideoFile(fname)
+
+    def addMediaFiles(self):
+        path = '.'
+        filename = self.labeltool.getCurrentFilename()
+        if (filename is not None) and (len(filename) > 0):
+            path = QFileInfo(filename).path()
+
+        image_types = [ '*.jpg', '*.bmp', '*.png', '*.pgm', '*.ppm', '*.ppm', '*.tif', '*.gif' ]
+        video_types = [ '*.mp4', '*.mpg', '*.mpeg', '*.avi', '*.mov', '*.vob' ]
+        format_str = ' '.join(image_types + video_types)
+
+        dialog = QFileDialog(self, "%s - Add Media File" % APP_NAME, path, "Media files (%s)" % (format_str, ))
+        dialog.setFileMode(3); #QFileDialog::ExistingFiles)
+        if dialog.exec_():
+            fnames = dialog.selectedFiles()
+        else:
+            return
+        for fname in fnames:
+            fname=str(fname)
+            if os.path.isabs(fname):
+                fname = os.path.relpath(fname, str(path))
+            #print fname
+            matched=False
+            for pattern in image_types:
+                if fnmatch.fnmatch(fname, pattern):
+                    self.labeltool.addImageFile(fname)
+                    matched=True
+                    break
+            if not(matched):
+                self.labeltool.addVideoFile(fname)
+
 
     def onViewsLockedChanged(self, checked):
         features = QDockWidget.AllDockWidgetFeatures

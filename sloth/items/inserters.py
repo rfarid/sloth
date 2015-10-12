@@ -137,11 +137,24 @@ class FixedRatioRectItemInserter(RectItemInserter):
                  prefix="", commit=True):
         RectItemInserter.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit)
-        self._ratio = float(default_properties.get('_ratio', 1))
+        self._width = 222
+        self._height = 74
+        self._ratio= float(self._width/self._height)
+
+    def mousePressEvent(self, event, image_item):
+        pos = event.scenePos()
+        self._init_pos = pos
+        xmin=self._init_pos.x()-(self._width/2)
+        ymin=self._init_pos.y()-(self._height/2)
+
+        self._item = QGraphicsRectItem(QRectF(xmin,ymin,self._width,self._height))
+        self._item.setPen(self.pen())
+        self._scene.addItem(self._item)
+        event.accept()
 
     def mouseMoveEvent(self, event, image_item):
-        if self._current_item is not None:
-            new_geometry = QRectF(self._current_item.rect().topLeft(),
+        if self._item is not None:
+            new_geometry = QRectF(self._item.rect().topLeft(),
                                   event.scenePos())
             dx = new_geometry.width()
             dy = new_geometry.height()
@@ -152,7 +165,7 @@ class FixedRatioRectItemInserter(RectItemInserter):
             w = d * r / k
             new_geometry.setWidth(w)
             new_geometry.setHeight(h)
-            self._current_item.setRect(new_geometry.normalized())
+            self._item.setRect(new_geometry.normalized())
 
         event.accept()
 

@@ -43,6 +43,7 @@
      <string>&amp;Edit</string>
     </property>
     <addaction name="action_Add_Image"/>
+    <addaction name="action_Add_Images"/>
    </widget>
    <widget class="QMenu" name="menu_Views">
     <property name="title">
@@ -96,6 +97,7 @@
    <addaction name="actionSave_As"/>
    <addaction name="separator"/>
    <addaction name="action_Add_Image"/>
+   <addaction name="action_Add_Images"/>
    <addaction name="actionPrevious"/>
    <addaction name="actionNext"/>
    <addaction name="actionZoom_In"/>
@@ -190,6 +192,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="action_Add_Images">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/picture_add.png</normaloff>:/icons/picture_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Add Images</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionNext">
