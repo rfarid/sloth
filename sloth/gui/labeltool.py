@@ -395,6 +395,7 @@ class MainWindow(QMainWindow):
         return self.labeltool.addVideoFile(fname)
 
     def addMediaFiles(self):
+        print "adding Media Files"
         path = '.'
         filename = self.labeltool.getCurrentFilename()
         if (filename is not None) and (len(filename) > 0):

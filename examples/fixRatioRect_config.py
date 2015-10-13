@@ -1,3 +1,161 @@
+import math
+from PyQt4.QtGui import *
+from PyQt4.Qt import *
+from sloth.items import BaseItem, RectItem, RectItemInserter
+
+class FixedRatioRectItem(RectItem):
+
+    def mousePressEvent(self, event):
+        #print "FixedRatioRectItem::mousePressEvent"
+        if event.button() & Qt.RightButton != 0:
+            w=self._rect.width()
+            h=self._rect.height()
+            centre_x=self._rect.center().x()
+            centre_y=self._rect.center().y()
+            ratio=self._rect.width()/self._rect.height()
+
+            self._resize = True
+            self._resize_start = event.scenePos()
+            self._resize_start_rect = QRectF(self._rect)
+            self._upper_half_clicked = (event.scenePos().y() < self._resize_start_rect.center().y())
+            self._left_half_clicked  = (event.scenePos().x() < self._resize_start_rect.center().x())
+            event.accept()
+            #new_w=self._resize_start_rect.width()
+            #new_h=new_w/ratio
+            #x = centre_x - new_w/2
+            #y = centre_y - new_h/2
+            #rect = QRectF(QPointF(x,y), QSizeF(new_w, new_h)).normalized()
+            #self._updateRect(rect)
+            #self.updateModel()
+            #event.accept()
+        else:
+            BaseItem.mousePressEvent(self, event)
+
+    def mouseMoveEvent(self, event):
+        #print "FixedRatioRectItem::mouseMoveEvent"
+        if self._resize:
+            diff = event.scenePos() - self._resize_start
+            ratio=self._rect.width()/self._rect.height()
+            centre_x=self._rect.center().x()
+            centre_y=self._rect.center().y()
+
+            changed=False
+            if self._left_half_clicked:
+                new_w = self._resize_start_rect.width() - diff.x()
+                if (new_w>10):
+                    w = new_w
+                    h = w/ratio
+                    changed=True
+            else:
+                new_w = self._resize_start_rect.width() + diff.x()
+                if (new_w>10):
+                    w = new_w
+                    h = w/ratio
+                    changed=True
+
+            if self._upper_half_clicked:
+                new_h=self._resize_start_rect.height() - diff.y()
+                if (new_h>10):
+                    h = new_h
+                    w = ratio*h
+                    changed=True
+            else:
+                new_h=self._resize_start_rect.height() + diff.y()
+                if (new_h>10):
+                    h = new_h
+                    w = ratio*h
+                    changed=True
+
+            if (changed):
+                x = centre_x - w/2
+                y = centre_y - h/2
+                rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
+                self._updateRect(rect)
+
+            self.updateModel()
+            event.accept()
+        else:
+            BaseItem.mouseMoveEvent(self, event)
+
+    def keyPressEvent(self, event):
+        BaseItem.keyPressEvent(self, event)
+        step = 1
+        if event.modifiers() & Qt.ShiftModifier:
+            step = 5
+        ds = {Qt.Key_Left:  (-step, 0),
+              Qt.Key_Right: (step, 0),
+              Qt.Key_Up:    (0, -step),
+              Qt.Key_Down:  (0, step),
+             }.get(event.key(), None)
+        if ds is not None:
+            if event.modifiers() & Qt.ControlModifier:
+                centre_x=self._rect.center().x()#self._rect.x()+self._rect.width()/2
+                centre_y=self._rect.center().y()#self._rect.y()+self._rect.height()/2
+                ratio=self._rect.width()/self._rect.height()
+                changed=False
+                if (ds[0]==0): # change of height
+                    newh=self._rect.height() + ds[1]*2
+                    if (newh>10):
+                        h = newh
+                        w = ratio*h
+                        changed=True
+                else: # change of width
+                    neww=self._rect.width() + ds[0]*2
+                    if (neww>10):
+                        w = neww
+                        h = w/ratio
+                        changed=True
+                if (changed):
+                    x = centre_x - w/2
+                    y = centre_y - h/2
+                    rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
+                    self._updateRect(rect)
+            else:
+                rect = self._rect.adjusted(*(ds + ds))
+                self._updateRect(rect)
+            self.updateModel()
+            event.accept()
+
+class FixedRatioRectItemInserter(RectItemInserter):
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+                                  prefix, commit)
+        self._width = 222
+        self._height = 74
+        self._ratio= float(self._width/self._height)
+        self.setPen(QPen(Qt.red, 2))
+
+    def mousePressEvent(self, event, image_item):
+        #print "FixedRatioRectItemInserter::mousePressEvent"
+        pos = event.scenePos()
+        self._init_pos = pos
+        xmin=self._init_pos.x()-(self._width/2)
+        ymin=self._init_pos.y()-(self._height/2)
+
+        self._item = QGraphicsRectItem(QRectF(xmin,ymin,self._width,self._height))
+        self._item.setPen(self.pen())
+        self._scene.addItem(self._item)
+        event.accept()
+
+    def mouseMoveEvent(self, event, image_item):
+        if self._item is not None:
+            #print "FixedRatioRectItemInserter::mouseMoveEvent"
+            new_geometry = QRectF(self._item.rect().topLeft(),
+                                  event.scenePos())
+            dx = new_geometry.width()
+            dy = new_geometry.height()
+            d = math.sqrt(dx * dx + dy * dy)
+            r = self._ratio
+            k = math.sqrt(r * r + 1)
+            h = d / k
+            w = d * r / k
+            new_geometry.setWidth(w)
+            new_geometry.setHeight(h)
+            self._item.setRect(new_geometry.normalized())
+
+        event.accept()
+
 # This is sloth's default configuration.
 #
 # The configuration file is a simple python module with module-level
@@ -38,8 +196,8 @@ LABELS = (
         'attributes': {
             'class':      'FixedRatioRect',
         },
-        'inserter': 'sloth.items.FixedRatioRectItemInserter',
-        'item':     'sloth.items.FixedRatioRectItem',
+        'inserter': FixedRatioRectItemInserter,
+        'item':     FixedRatioRectItem,
         'hotkey':   'f',
         'text':     'FixedRatioRectangle',
     },
