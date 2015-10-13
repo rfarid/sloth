@@ -124,7 +124,6 @@ class FixedRatioRectItemInserter(RectItemInserter):
         self._width = 222
         self._height = 74
         self._ratio= float(self._width/self._height)
-        self.setPen(QPen(Qt.red, 2))
 
     def mousePressEvent(self, event, image_item):
         #print "FixedRatioRectItemInserter::mousePressEvent"
@@ -155,6 +154,24 @@ class FixedRatioRectItemInserter(RectItemInserter):
             self._item.setRect(new_geometry.normalized())
 
         event.accept()
+
+class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+                                  prefix, commit)
+        self._width = 444
+        self._height = 148
+        self._ratio= float(self._width/self._height)
+
+class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+                                  prefix, commit)
+        self._width = 666
+        self._height = 222
+        self._ratio= float(self._width/self._height)
 
 # This is sloth's default configuration.
 #
@@ -199,7 +216,25 @@ LABELS = (
         'inserter': FixedRatioRectItemInserter,
         'item':     FixedRatioRectItem,
         'hotkey':   'f',
-        'text':     'FixedRatioRectangle',
+        'text':     'FixedRatioRect_222x74',
+    },
+    {
+        'attributes': {
+            'class':      'FixedRatioRect2',
+        },
+        'inserter': FixedRatioRectItemInserter2,
+        'item':     FixedRatioRectItem,
+        'hotkey':   'g',
+        'text':     'FixedRatioRect_444x148',
+    },
+    {
+        'attributes': {
+            'class':      'FixedRatioRect3',
+        },
+        'inserter': FixedRatioRectItemInserter3,
+        'item':     FixedRatioRectItem,
+        'hotkey':   'h',
+        'text':     'FixedRatioRectangle_666x222',
     },
 #    {
 #        'attributes': {
