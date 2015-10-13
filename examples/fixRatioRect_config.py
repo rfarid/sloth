@@ -1,9 +1,32 @@
-import math
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
 from sloth.items import BaseItem, RectItem, RectItemInserter
-
+#
+# WARNING:
+# You need to change the following parameters based on your images
+# FixedRatioRectItem
+#        self._max_w=3840
+#        self._max_h=2160
+#
+# FixedRatioRectItemInserter (2,3 as well)
+#        self._width = 222
+#        self._height = 74
+#
+#__________________________________________________________________________________________
+#
+# FixedRatioRectItem
+#
+#__________________________________________________________________________________________
 class FixedRatioRectItem(RectItem):
+
+    def __init__(self, *args, **kwargs):
+        RectItem.__init__(self, *args, **kwargs)
+        #new_image = RectItem.labeltool.currentImage()
+        #img = RectItem.labeltool.getImage(new_image)
+        #self._max_w=img.shape[1]
+        #self._max_h=img.shape[0]
+        self._max_w=3840
+        self._max_h=2160
 
     def mousePressEvent(self, event):
         #print "FixedRatioRectItem::mousePressEvent"
@@ -69,13 +92,25 @@ class FixedRatioRectItem(RectItem):
             if (changed):
                 x = centre_x - w/2
                 y = centre_y - h/2
-                rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
-                self._updateRect(rect)
+                if (x+w<=self._max_w and y+h<=self._max_h and x>=0 and y>=0):
+                    rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
+                    self._updateRect(rect)
 
             self.updateModel()
             event.accept()
         else:
+            currentRect=self._rect
             BaseItem.mouseMoveEvent(self, event)
+            accepted=True
+            if (self._rect.x()<0 or self._rect.y()<0):
+                accepted=False
+            elif (self._rect.x()+self._rect.width()>self._max_w or self._rect.y()+self._rect.height()>self._max_h):
+                accepted=False
+            if not(accepted):
+                self._updateRect(currentRect)
+                self.updateModel()
+                event.accept()
+
 
     def keyPressEvent(self, event):
         BaseItem.keyPressEvent(self, event)
@@ -94,7 +129,7 @@ class FixedRatioRectItem(RectItem):
                 ratio=self._rect.width()/self._rect.height()
                 changed=False
                 if (ds[0]==0): # change of height
-                    newh=self._rect.height() + ds[1]*2
+                    newh=self._rect.height() + ds[1]*-2
                     if (newh>10):
                         h = newh
                         w = ratio*h
@@ -108,13 +143,20 @@ class FixedRatioRectItem(RectItem):
                 if (changed):
                     x = centre_x - w/2
                     y = centre_y - h/2
-                    rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
-                    self._updateRect(rect)
+                    if (x>=0 and y>=0 and x+w<=self._max_w and y+h<=self._max_h):
+                        rect = QRectF(QPointF(x,y), QSizeF(w, h)).normalized()
+                        self._updateRect(rect)
             else:
                 rect = self._rect.adjusted(*(ds + ds))
-                self._updateRect(rect)
+                if (rect.x()>=0 and rect.y()>=0 and rect.x()+rect.width()<=self._max_w and rect.y()+rect.height()<=self._max_h):
+                    self._updateRect(rect)
             self.updateModel()
             event.accept()
+
+#
+# FixedRatioRectItemInserter
+#
+#__________________________________________________________________________________________
 
 class FixedRatioRectItemInserter(RectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
@@ -124,15 +166,40 @@ class FixedRatioRectItemInserter(RectItemInserter):
         self._width = 222
         self._height = 74
         self._ratio= float(self._width/self._height)
+        self.setMaxWH()
+
+    def setMaxWH(self):
+        new_image = self._labeltool.currentImage()
+        img = self._labeltool.getImage(new_image)
+        self._max_w=img.shape[1]
+        self._max_h=img.shape[0]
 
     def mousePressEvent(self, event, image_item):
         #print "FixedRatioRectItemInserter::mousePressEvent"
         pos = event.scenePos()
+
+        # check if it is out of image boundary
+        if (pos.x()<0 or pos.y()<0):
+            return
+        if (pos.x()>self._max_w or pos.y()>self._max_h):
+            return
+
         self._init_pos = pos
         xmin=self._init_pos.x()-(self._width/2)
         ymin=self._init_pos.y()-(self._height/2)
-
-        self._item = QGraphicsRectItem(QRectF(xmin,ymin,self._width,self._height))
+        if xmin<0:
+            xmin=0
+        if ymin<0:
+            ymin=0
+        w=self._width
+        h=self._height
+        if (xmin+w>self._max_w):
+            w=self._max_w-xmin
+            h=w/self._ratio
+        if (ymin+h>self._max_h):
+            h=self._max_h-ymin
+            w=h*self._ratio
+        self._item = QGraphicsRectItem(QRectF(xmin,ymin,w,h))
         self._item.setPen(self.pen())
         self._scene.addItem(self._item)
         event.accept()
@@ -140,6 +207,7 @@ class FixedRatioRectItemInserter(RectItemInserter):
     def mouseMoveEvent(self, event, image_item):
         if self._item is not None:
             #print "FixedRatioRectItemInserter::mouseMoveEvent"
+
             new_geometry = QRectF(self._item.rect().topLeft(),
                                   event.scenePos())
             dx = new_geometry.width()
@@ -151,9 +219,20 @@ class FixedRatioRectItemInserter(RectItemInserter):
             w = d * r / k
             new_geometry.setWidth(w)
             new_geometry.setHeight(h)
+
+            # check if it is out of image boundary
+            if new_geometry.x()+new_geometry.width()>self._max_w:
+                return
+            if new_geometry.y()+new_geometry.height()>self._max_h:
+                return
+
             self._item.setRect(new_geometry.normalized())
 
         event.accept()
+#
+# FixedRatioRectItemInserter2
+#
+#__________________________________________________________________________________________
 
 class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
@@ -163,6 +242,11 @@ class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
         self._width = 444
         self._height = 148
         self._ratio= float(self._width/self._height)
+        self.setMaxWH()
+#
+# FixedRatioRectItemInserter3
+#
+#__________________________________________________________________________________________
 
 class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
@@ -172,6 +256,7 @@ class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
         self._width = 666
         self._height = 222
         self._ratio= float(self._width/self._height)
+        self.setMaxWH()
 
 # This is sloth's default configuration.
 #
