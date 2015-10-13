@@ -197,7 +197,7 @@
   <action name="action_Add_Images">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/picture_add.png</normaloff>:/icons/picture_add.png</iconset>
+     <normaloff>:/icons/pictures_add.png</normaloff>:/icons/pictures_add.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Add Images</string>
