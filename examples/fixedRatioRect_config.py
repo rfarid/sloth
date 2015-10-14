@@ -27,6 +27,15 @@ class FixedRatioRectItem(RectItem):
         #self._max_h=img.shape[0]
         self._max_w=3840
         self._max_h=2160
+        self._color = Qt.red
+
+    def setColor(self, color):
+        self._color = color
+
+    def __call__(self, *args, **kwargs):
+        newitem = FixedRatioRectItem(*args, **kwargs)
+	newitem.setColor(self._color)
+        return newitem
 
     def mousePressEvent(self, event):
         #print "FixedRatioRectItem::mousePressEvent"
@@ -200,7 +209,7 @@ class FixedRatioRectItemInserter(RectItemInserter):
             h=self._max_h-ymin
             w=h*self._ratio
         self._item = QGraphicsRectItem(QRectF(xmin,ymin,w,h))
-        self._item.setPen(self.pen())
+        #self._item.setPen(self.pen())
         self._scene.addItem(self._item)
         event.accept()
 
