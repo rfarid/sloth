@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
 from sloth.items import BaseItem, RectItem, RectItemInserter
+import math
+
 #
 # WARNING:
 # You need to change the following parameters based on your images
