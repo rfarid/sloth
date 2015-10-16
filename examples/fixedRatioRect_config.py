@@ -29,14 +29,11 @@ class FixedRatioRectItem(RectItem):
         #self._max_h=img.shape[0]
         self._max_w=3840
         self._max_h=2160
-        self._color = Qt.red
-
-    def setColor(self, color):
-        self._color = color
+        self.setPen(QPen(Qt.darkBlue, 2))
 
     def __call__(self, *args, **kwargs):
         newitem = FixedRatioRectItem(*args, **kwargs)
-	newitem.setColor(self._color)
+        #newitem.setColor(self._color)
         return newitem
 
     def mousePressEvent(self, event):
@@ -176,10 +173,12 @@ class FixedRatioRectItemInserter(RectItemInserter):
                                   prefix, commit)
         self._width = 222
         self._height = 74
-        self._ratio= float(self._width/self._height)
-        self.setMaxWH()
+        self.setOthers()
 
-    def setMaxWH(self):
+    def setOthers(self):
+        # ratio
+        self._ratio= float(self._width/self._height)
+        # max W,H
         new_image = self._labeltool.currentImage()
         img = self._labeltool.getImage(new_image)
         self._max_w=img.shape[1]
@@ -252,8 +251,7 @@ class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
                                   prefix, commit)
         self._width = 444
         self._height = 148
-        self._ratio= float(self._width/self._height)
-        self.setMaxWH()
+        self.setOthers()
 #
 # FixedRatioRectItemInserter3
 #
@@ -266,8 +264,7 @@ class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
                                   prefix, commit)
         self._width = 666
         self._height = 222
-        self._ratio= float(self._width/self._height)
-        self.setMaxWH()
+        self.setOthers()
 
 # This is sloth's default configuration.
 #
