@@ -10,7 +10,7 @@ import math
 #        self._max_w=3840
 #        self._max_h=2160
 #
-# FixedRatioRectItemInserter (2,3 as well)
+# FixedRatioRectItemInserter (2,3 will be changed automatically)
 #        self._width = 222
 #        self._height = 74
 #
@@ -247,10 +247,10 @@ class FixedRatioRectItemInserter(RectItemInserter):
 class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
                  prefix="", commit=True):
-        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+        FixedRatioRectItemInserter.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit)
-        self._width = 444
-        self._height = 148
+        self._width *= 2
+        self._height *= 2
         self.setOthers()
 #
 # FixedRatioRectItemInserter3
@@ -260,10 +260,10 @@ class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
 class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
                  prefix="", commit=True):
-        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+        FixedRatioRectItemInserter.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit)
-        self._width = 666
-        self._height = 222
+        self._width *= 3
+        self._height *= 3
         self.setOthers()
 
 # This is sloth's default configuration.
