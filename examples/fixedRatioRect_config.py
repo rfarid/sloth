@@ -6,20 +6,20 @@ import math
 #
 # WARNING:
 # You need to change the following parameters based on your images
-# FixedRatioRectItem
+# FixedRatioRectItem_cutom
 #        self._max_w=3840
 #        self._max_h=2160
 #
-# FixedRatioRectItemInserter (2,3 will be changed automatically)
+# FixedRatioRectItemInserter_custom (2,3 will be changed automatically)
 #        self._width = 222
 #        self._height = 74
 #
 #__________________________________________________________________________________________
 #
-# FixedRatioRectItem
+# FixedRatioRectItem_cutom
 #
 #__________________________________________________________________________________________
-class FixedRatioRectItem(RectItem):
+class FixedRatioRectItem_cutom(RectItem):
 
     def __init__(self, *args, **kwargs):
         RectItem.__init__(self, *args, **kwargs)
@@ -32,12 +32,12 @@ class FixedRatioRectItem(RectItem):
         self.setPen(QPen(Qt.darkBlue, 2))
 
     def __call__(self, *args, **kwargs):
-        newitem = FixedRatioRectItem(*args, **kwargs)
+        newitem = FixedRatioRectItem_cutom(*args, **kwargs)
         #newitem.setColor(self._color)
         return newitem
 
     def mousePressEvent(self, event):
-        #print "FixedRatioRectItem::mousePressEvent"
+        #print "FixedRatioRectItem_cutom::mousePressEvent"
         if event.button() & Qt.RightButton != 0:
             w=self._rect.width()
             h=self._rect.height()
@@ -63,7 +63,7 @@ class FixedRatioRectItem(RectItem):
             BaseItem.mousePressEvent(self, event)
 
     def mouseMoveEvent(self, event):
-        #print "FixedRatioRectItem::mouseMoveEvent"
+        #print "FixedRatioRectItem_cutom::mouseMoveEvent"
         if self._resize:
             diff = event.scenePos() - self._resize_start
             ratio=self._rect.width()/self._rect.height()
@@ -162,11 +162,11 @@ class FixedRatioRectItem(RectItem):
             event.accept()
 
 #
-# FixedRatioRectItemInserter
+# FixedRatioRectItemInserter_custom
 #
 #__________________________________________________________________________________________
 
-class FixedRatioRectItemInserter(RectItemInserter):
+class FixedRatioRectItemInserter_custom(RectItemInserter):
     def __init__(self, labeltool, scene, default_properties=None,
                  prefix="", commit=True):
         RectItemInserter.__init__(self, labeltool, scene, default_properties,
@@ -185,7 +185,7 @@ class FixedRatioRectItemInserter(RectItemInserter):
         self._max_h=img.shape[0]
 
     def mousePressEvent(self, event, image_item):
-        #print "FixedRatioRectItemInserter::mousePressEvent"
+        #print "FixedRatioRectItemInserter_custom::mousePressEvent"
         pos = event.scenePos()
 
         # check if it is out of image boundary
@@ -216,7 +216,7 @@ class FixedRatioRectItemInserter(RectItemInserter):
 
     def mouseMoveEvent(self, event, image_item):
         if self._item is not None:
-            #print "FixedRatioRectItemInserter::mouseMoveEvent"
+            #print "FixedRatioRectItemInserter_custom::mouseMoveEvent"
 
             new_geometry = QRectF(self._item.rect().topLeft(),
                                   event.scenePos())
@@ -240,27 +240,27 @@ class FixedRatioRectItemInserter(RectItemInserter):
 
         event.accept()
 #
-# FixedRatioRectItemInserter2
+# FixedRatioRectItemInserter_custom2
 #
 #__________________________________________________________________________________________
 
-class FixedRatioRectItemInserter2(FixedRatioRectItemInserter):
+class FixedRatioRectItemInserter_custom2(FixedRatioRectItemInserter_custom):
     def __init__(self, labeltool, scene, default_properties=None,
                  prefix="", commit=True):
-        FixedRatioRectItemInserter.__init__(self, labeltool, scene, default_properties,
+        FixedRatioRectItemInserter_custom.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit)
         self._width *= 2
         self._height *= 2
         self.setOthers()
 #
-# FixedRatioRectItemInserter3
+# FixedRatioRectItemInserter_custom3
 #
 #__________________________________________________________________________________________
 
-class FixedRatioRectItemInserter3(FixedRatioRectItemInserter):
+class FixedRatioRectItemInserter_custom3(FixedRatioRectItemInserter_custom):
     def __init__(self, labeltool, scene, default_properties=None,
                  prefix="", commit=True):
-        FixedRatioRectItemInserter.__init__(self, labeltool, scene, default_properties,
+        FixedRatioRectItemInserter_custom.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit)
         self._width *= 3
         self._height *= 3
@@ -306,8 +306,8 @@ LABELS = (
         'attributes': {
             'class':      'FixedRatioRect',
         },
-        'inserter': FixedRatioRectItemInserter,
-        'item':     FixedRatioRectItem,
+        'inserter': FixedRatioRectItemInserter_custom,
+        'item':     FixedRatioRectItem_cutom,
         'hotkey':   'f',
         'text':     'FixedRatioRect_222x74',
     },
@@ -315,8 +315,8 @@ LABELS = (
         'attributes': {
             'class':      'FixedRatioRect2',
         },
-        'inserter': FixedRatioRectItemInserter2,
-        'item':     FixedRatioRectItem,
+        'inserter': FixedRatioRectItemInserter_custom2,
+        'item':     FixedRatioRectItem_cutom,
         'hotkey':   'g',
         'text':     'FixedRatioRect_444x148',
     },
@@ -324,8 +324,8 @@ LABELS = (
         'attributes': {
             'class':      'FixedRatioRect3',
         },
-        'inserter': FixedRatioRectItemInserter3,
-        'item':     FixedRatioRectItem,
+        'inserter': FixedRatioRectItemInserter_custom3,
+        'item':     FixedRatioRectItem_cutom,
         'hotkey':   'h',
         'text':     'FixedRatioRectangle_666x222',
     },

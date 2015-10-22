@@ -2,22 +2,28 @@ from PyQt4.QtGui import QPen
 from PyQt4.Qt import Qt
 from sloth.items import RectItem
 
+#__________________________________________________________________________________________
+#
+# RectColorWithLabel
+#
+#__________________________________________________________________________________________
 class RectColorWithLabel(RectItem):
 
     #defaultAutoTextKeys = ['x', 'y']
 
-    def __init__(self, model_item=None, prefix="", parent=None, color=Qt.red,label=""):
+    def __init__(self, model_item=None, prefix="", parent=None, color=Qt.black,label=""):
         RectItem.__init__(self, model_item, prefix, parent)
         self._userColor=color
         self._userLabel=label
-        # set drawing pen to red with width 2
-        #self.setPen(QPen(color, self._userColor))
-        #self._text_item.setHtml(self._userLabel)
+        self.setColor(self._userColor)
+        self._text_item.setHtml(self._userLabel)
+        self.setPen(QPen(self._userColor, 2))
 
     def __call__(self, *args, **kwargs):
         newitem = RectItem(*args, **kwargs)
         newitem.setColor(self._userColor)
         newitem._text_item.setHtml(self._userLabel)
+        self.setPen(QPen(self._userColor, 2))
         return newitem
 
 # colors={1:'ColorDarkRed',2:'ColorDarkGreen',4:'ColorDarkBlue',6:'ColorDarkGray',8:'ColorRed',10:'ColorGreen',12:'ColorBlue',14:'ColorDarkCyan',16:'ColorBlack'}
