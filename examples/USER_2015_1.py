@@ -1,5 +1,5 @@
 # Half pole top     0.37                    yellow
-# Cross-arm Rect    3.0 (rortated:0.66)     black
+# Cross-arm Rect    3.0 (angled:0.66)       darkMagenta
 # Transformer       0.75                    magenta
 # Insulator                                 
 # Road Light        1.0                     white
@@ -27,6 +27,15 @@ class FRWL_cross_arm(FixedRatioRectItemInserter_custom_base):
                  prefix="", commit=True):
         FixedRatioRectItemInserter_custom_base.__init__(self, labeltool, scene, default_properties,
                                   prefix, commit,ratio=3.0)
+#
+# FRWL_angled_cross_arm
+#
+#__________________________________________________________________________________________
+class FRWL_angled_cross_arm(FixedRatioRectItemInserter_custom_base):
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        FixedRatioRectItemInserter_custom_base.__init__(self, labeltool, scene, default_properties,
+                                  prefix, commit,ratio=0.66)
 #__________________________________________________________________________________________
 # FRWL_half_pole_top
 #
@@ -100,6 +109,14 @@ LABELS = (
         'item':     FixedRatioRectItem_cutom(color=Qt.black,label="cross_arm"),
         'hotkey':   'c',
         'text':     'Cross arm',
+    },
+        'attributes': {
+            'class':      'FRWL_angled_cross_arm',
+        },
+        'inserter': FRWL_cross_arm,
+        'item':     FixedRatioRectItem_cutom(color=Qt.darkMagenta,label="angled_cross_arm"),
+        'hotkey':   'c',
+        'text':     'Cross arm(Angled)',
     },
     {
         'attributes': {
