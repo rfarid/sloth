@@ -1,6 +1,7 @@
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
-
+# RF: adding math for FixedRatioRectItemInserter
+import math
 
 class ItemInserter(QObject):
     """
@@ -130,29 +131,30 @@ class RectItemInserter(ItemInserter):
             self._init_pos = None
         ItemInserter.abort(self)
 
-#class FixedRatioRectItemInserter(RectItemInserter):
-#    def __init__(self, labeltool, scene, default_properties=None,
-#                 prefix="", commit=True):
-#        RectItemInserter.__init__(self, labeltool, scene, default_properties,
-#                                  prefix, commit)
-#        self._ratio = float(default_properties.get('_ratio', 1))
-#
-#    def mouseMoveEvent(self, event, image_item):
-#        if self._current_item is not None:
-#            new_geometry = QRectF(self._current_item.rect().topLeft(),
-#                                  event.scenePos())
-#            dx = new_geometry.width()
-#            dy = new_geometry.height()
-#            d = math.sqrt(dx * dx + dy * dy)
-#            r = self._ratio
-#            k = math.sqrt(r * r + 1)
-#            h = d / k
-#            w = d * r / k
-#            new_geometry.setWidth(w)
-#            new_geometry.setHeight(h)
-#            self._current_item.setRect(new_geometry.normalized())
-#
-#        event.accept()
+class FixedRatioRectItemInserter(RectItemInserter):
+    def __init__(self, labeltool, scene, default_properties=None,
+                 prefix="", commit=True):
+        RectItemInserter.__init__(self, labeltool, scene, default_properties,
+                                  prefix, commit)
+        self._ratio = float(default_properties.get('_ratio', 1))
+
+    def mouseMoveEvent(self, event, image_item):
+        if self._item is not None:
+            #new_geometry = QRectF(self._current_item.rect().topLeft(), event.scenePos())
+            new_geometry = QRectF(self._item.rect().topLeft(), event.scenePos())
+            dx = new_geometry.width()
+            dy = new_geometry.height()
+            d = math.sqrt(dx * dx + dy * dy)
+            r = self._ratio
+            k = math.sqrt(r * r + 1)
+            h = d / k
+            w = d * r / k
+            new_geometry.setWidth(w)
+            new_geometry.setHeight(h)
+            #self._current_item.setRect(new_geometry.normalized())
+            self._item.setRect(new_geometry.normalized())
+
+        event.accept()
 
 class SequenceItemInserter(ItemInserter):
     inserters = []
