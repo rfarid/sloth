@@ -23,7 +23,6 @@ class RectColorWithLabel(RectItem):
         newitem = RectItem(*args, **kwargs)
         newitem.setColor(self._userColor)
         newitem._text_item.setHtml(self._userLabel)
-        self.setPen(QPen(self._userColor, 2))
         return newitem
 
 # colors={1:'ColorDarkRed',2:'ColorDarkGreen',4:'ColorDarkBlue',6:'ColorDarkGray',8:'ColorRed',10:'ColorGreen',12:'ColorBlue',14:'ColorDarkCyan',16:'ColorBlack'}
