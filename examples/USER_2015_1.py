@@ -114,7 +114,7 @@ LABELS = (
         'attributes': {
             'class':      'FRWL_angled_cross_arm',
         },
-        'inserter': FRWL_cross_arm,
+        'inserter': FRWL_angled_cross_arm,
         'item':     FixedRatioRectItem_cutom(color=Qt.darkMagenta,label="angled_cross_arm"),
         'hotkey':   'c',
         'text':     'Cross arm(Angled)',
