@@ -110,6 +110,7 @@ LABELS = (
         'hotkey':   'c',
         'text':     'Cross arm',
     },
+    {
         'attributes': {
             'class':      'FRWL_angled_cross_arm',
         },
