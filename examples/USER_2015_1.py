@@ -103,7 +103,7 @@ class FRWL_road_light(FixedRatioRectItemInserter_custom_base):
 LABELS = (
     {
         'attributes': {
-            'class':      'FRWL_cross_arm',
+            'class':      'cross_arm',
         },
         'inserter': FRWL_cross_arm,
         'item':     FixedRatioRectItem_cutom(color=Qt.black,label="cross_arm"),
@@ -112,16 +112,16 @@ LABELS = (
     },
     {
         'attributes': {
-            'class':      'FRWL_angled_cross_arm',
+            'class':      'angled_cross_arm',
         },
         'inserter': FRWL_angled_cross_arm,
         'item':     FixedRatioRectItem_cutom(color=Qt.darkMagenta,label="angled_cross_arm"),
-        'hotkey':   'c',
+        'hotkey':   'a',
         'text':     'Cross arm(Angled)',
     },
     {
         'attributes': {
-            'class':      'FRWL_half_pole_top',
+            'class':      'half_pole_top',
         },
         'inserter': FRWL_half_pole_top,
         'item':     FixedRatioRectItem_cutom(color=Qt.yellow,label="half_pole_top"),
@@ -130,7 +130,7 @@ LABELS = (
     },
     {
         'attributes': {
-            'class':      'FRWL_transformer',
+            'class':      'transformer',
         },
         'inserter': FRWL_transformer,
         'item':     FixedRatioRectItem_cutom(color=Qt.magenta,label="transformer"),
@@ -139,7 +139,7 @@ LABELS = (
     },
     {
         'attributes': {
-            'class':      'FRWL_road_light',
+            'class':      'road_light',
         },
         'inserter': FRWL_road_light,
         'item':     FixedRatioRectItem_cutom(color=Qt.white,label="road_light"),
@@ -181,7 +181,7 @@ LABELS = (
     },
     {
         'attributes': {
-            'class':      'Road Surface',
+            'class':      'Road_Surface',
         },
         'inserter': 'sloth.items.RectItemInserter',
         'item':     RectColorWithLabel(color=Qt.darkGray,label="Road Surface"),
