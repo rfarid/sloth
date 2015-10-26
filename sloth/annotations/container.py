@@ -130,6 +130,7 @@ class AnnotationContainer:
             newfilename=os.path.join(in_folder,item_filename)
             #print newfilename
             item['filename']=newfilename
+        print "Done!"
         return annotations
     #_______________________________________________________________________________________
     #
@@ -149,6 +150,7 @@ class AnnotationContainer:
             relfilename=os.path.relpath(item_filename,out_folder)
             #print relfilename
             item['filename']=relfilename
+        print "Done!"
         return annotations
     #_______________________________________________________________________________________        
     def save(self, annotations, filename=""):
