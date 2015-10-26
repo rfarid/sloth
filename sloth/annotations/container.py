@@ -98,6 +98,7 @@ class AnnotationContainer:
         self._filename = filename
         start = time.time()
         ann = self.parseFromFile(filename)
+        ann = self.updateFilenamesAfterLoad(filename,ann) # added by Reza Farid
         diff = time.time() - start
         LOG.info("Loaded annotations from %s in %.2fs" % (filename, diff))
         return ann
@@ -111,13 +112,54 @@ class AnnotationContainer:
             "if you use the default implementation of " +
             "AnnotationContainer.load()"
         )
-
+    #_______________________________________________________________________________________
+    #
+    #   updateFilenamesAfterLoad (Reza Farid, 2015/10/26)
+    #
+    #_______________________________________________________________________________________
+    def updateFilenamesAfterLoad(self,infile,annotations):
+        print "Updating filenames after loading ..."
+        #print infile
+        in_folder=os.path.dirname(os.path.abspath(infile))
+        #print in_folder
+        for item in annotations:
+            # filename
+            item_filename=item['filename']
+            #print item_filename
+            # absolute filename to be saved
+            newfilename=os.path.join(in_folder,item_filename)
+            #print newfilename
+            item['filename']=newfilename
+        return annotations
+    #_______________________________________________________________________________________
+    #
+    #   updateFilenamesForSaving (Reza Farid, 2015/10/26)
+    #
+    #_______________________________________________________________________________________
+    def updateFilenamesForSaving(self,outfile,annotations):
+        print "Updating filenames before saving ..."
+        #print outfile
+        out_folder=os.path.dirname(os.path.abspath(outfile))
+        #print out_folder
+        for item in annotations:
+            # filename
+            item_filename=item['filename']
+            #print item_filename
+            # absolute filename to be saved
+            relfilename=os.path.relpath(item_filename,out_folder)
+            #print relfilename
+            item['filename']=relfilename
+        return annotations
+    #_______________________________________________________________________________________        
     def save(self, annotations, filename=""):
         """
         Save the annotations.
         """
         if not filename:
             filename = self.filename()
+        
+        annotations=self.updateFilenamesForSaving(filename,annotations) # added by Reza Farid
+
         self.serializeToFile(filename, annotations)
         self._filename = filename
 

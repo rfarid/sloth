@@ -387,15 +387,15 @@ class MainWindow(QMainWindow):
 
         if os.path.isabs(fname):
             fname = os.path.relpath(fname, str(path))
-
+        
         for pattern in image_types:
             if fnmatch.fnmatch(fname, pattern):
                 return self.labeltool.addImageFile(fname)
 
         return self.labeltool.addVideoFile(fname)
 
-    def addMediaFiles(self):
-        print "adding Media Files"
+    def addMediaFiles(self): # added by Reza Farid
+        #print "adding Media Files"
         path = '.'
         filename = self.labeltool.getCurrentFilename()
         if (filename is not None) and (len(filename) > 0):
