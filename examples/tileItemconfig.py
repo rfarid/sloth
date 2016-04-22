@@ -3,7 +3,7 @@ from coloredRectItemWithLabel_def import RectColorWithLabel
 from PyQt4.Qt import Qt
 TILE=(96,124)
 TILE_BORDER=(5,2)
-# pole, tree, sign, power_line
+# pole, tree, sign, power_line, road_light
 LABELS = (
     # {
     #     'attributes': {
@@ -75,6 +75,22 @@ LABELS = (
         },
         'inserter': 'sloth.items.PointItemInserter',
         'item':     TileItem(color=Qt.darkRed,pen_width=4,label="power_line",tile=TILE,tile_border=TILE_BORDER,point_as_centre=False),  
+        'text':     'Rectangle',
+    },
+    {
+        'attributes': {
+            'class':      'road_light_Rect',
+        },
+        'inserter': 'sloth.items.RectItemInserter',
+        'item':     RectColorWithLabel(color=Qt.darkCyan,label="road_light"),  
+        'text':     'Rectangle',
+    },
+    {
+        'attributes': {
+            'class':      'road_light',
+        },
+        'inserter': 'sloth.items.PointItemInserter',
+        'item':     TileItem(color=Qt.darkCyan,pen_width=4,label="road_light",tile=TILE,tile_border=TILE_BORDER,point_as_centre=False),  
         'text':     'Rectangle',
     },
 )
