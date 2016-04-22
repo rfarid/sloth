@@ -1,4 +1,4 @@
-from crossItem_def import CrossItem, CrossItemInserter
+from crossItem_def import CrossItem
 from PyQt4.Qt import Qt
 
 LABELS = (
@@ -14,7 +14,7 @@ LABELS = (
         'attributes': {
             'class':      'pole',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.darkRed,radius=10,label="Pole"),  
         'text':     'Point',
     },
@@ -22,7 +22,7 @@ LABELS = (
         'attributes': {
             'class':      'tree',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.darkGreen,label="tree"),  
         'text':     'Point',
     },
@@ -30,7 +30,7 @@ LABELS = (
         'attributes': {
             'class':      'sky_cloud',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.darkBlue,label="sky_cloud"),  
         'text':     'Point',
     },
@@ -38,7 +38,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorDarkGray',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.darkGray),  
         'text':     'Point',
     },
@@ -46,7 +46,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorRed',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.red),
         'text':     'Point',
     },
@@ -54,7 +54,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorGreen',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.green),  
         'text':     'Point',
     },
@@ -62,7 +62,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorBlue',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.blue),  
         'text':     'Point',
     },
@@ -70,7 +70,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorDarkCyan',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.darkCyan),  
         'text':     'Point',
     },
@@ -78,7 +78,7 @@ LABELS = (
         'attributes': {
             'class':      'pointColorBlack',
         },
-        'inserter': 'crossItem_def.CrossItemInserter',
+        'inserter': 'sloth.items.PointItemInserter',
         'item':     CrossItem(color=Qt.black),  
         'text':     'Point',
     },

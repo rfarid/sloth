@@ -1,6 +1,6 @@
 # Reza Farid, Fugro Roames
 # Created:      Based on coloredRectItemWithLabel_def.py in 2015
-# Last update:  2016/04/21
+# Last update:  2016/04/22
 #
 # an extension to sloth to select a point, show it as a cross with associated colour and label
 # the size of the cross can be controlled by radius parameter
@@ -11,36 +11,6 @@ from sloth.items import ItemInserter, BaseItem
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
 
-#__________________________________________________________________________________________
-#
-# CrossItemInserter
-#
-#__________________________________________________________________________________________
-class CrossItemInserter(ItemInserter):
-    # def __init__(self, model_item=None, prefix="", parent=None,color=Qt.black,label=""):
-    #     PointItemInserter.__init__(self, model_item, prefix, parent,color,label)
-
-    def mousePressEvent(self, event, image_item):
-        pos = event.scenePos()
-        self._ann.update({
-            self._prefix + 'x': pos.x(),
-            self._prefix + 'y': pos.y()})
-        self._ann.update(self._default_properties)
-        if self._commit:
-            image_item.addAnnotation(self._ann)
-        # self._item = QGraphicsEllipseItem(QRectF(pos.x() - 2,
-        #                                   pos.y() - 2, 5, 5))
-        x=float(pos.x())
-        y=float(pos.y())
-        poly=QPolygonF()
-        poly+=QPointF(x-10,y)
-        poly+=QPointF(x+10,y)
-        poly+=QPointF(x,y-10)
-        poly+=QPointF(x,y+10)
-        self._item = QGraphicsPolygonItem(poly)
-        self._item.setPen(self.pen())
-        self.annotationFinished.emit()
-        event.accept()
 #__________________________________________________________________________________________
 #
 # CrossItem
@@ -172,4 +142,3 @@ Qt::transparent	19	a transparent black value (i.e., QColor(0, 0, 0, 0))
 Qt::color0	0	0 pixel value (for bitmaps)
 Qt::color1	1	1 pixel value (for bitmaps)
 '''
-
