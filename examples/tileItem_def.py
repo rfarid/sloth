@@ -26,6 +26,7 @@ class TileItem(BaseItem):
     def __init__(self, model_item=None, prefix="", parent=None, color=Qt.red, pen_width=2, label="",tile=(10,10),tile_border=(0,0), point_as_centre=False):
         BaseItem.__init__(self, model_item, prefix, parent)
         self._point = None
+        # self._rect = None
         self._radius=2
         self._userColor=color
         self._userLabel=label
@@ -130,6 +131,7 @@ class TileItem(BaseItem):
         self.prepareGeometryChange()
         self._point = point
         self.setPos(self._point)
+        # self._rect = self.boundingRect()
 
     def boundingRect(self):
         tile = self._tile
