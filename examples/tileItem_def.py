@@ -15,7 +15,7 @@ from PyQt4.Qt import *
 #
 # TileItem
 #   It is similar to PointItem and RectItem
-#   Additionally, it has color, label and tile width/height as input parameters
+#   Additionally, it has color, label, pen_width and tile width/height as input parameters
 #   Paint module is also different by drawing a rectangle instead of ellipse
 #__________________________________________________________________________________________
 class TileItem(BaseItem):
