@@ -23,4 +23,4 @@ This fork includes some additional changes. For example:
 3. Some modification to guarantee that the Rectangle Coordinates are not out of image __boundary__.
 3. Adding various versions of __FixedRatioRect__ including colored and labeled options.
 4. Adding __Cross__ item similar to Point item by showing the selected point as a size-controlled coloured cross with a proper label
-5. Adding __Tile__ item similar to Point item by showing the corresponding rectangular tile
+5. Adding __Tile__ item __inserter__ similar to Point item by showing the corresponding rectangular tile
