@@ -1,6 +1,6 @@
 # Reza Farid, Fugro Roames
 # Created:      2016/04/22
-# Last update:  2016/04/22
+# Last update:  2016/04/26
 #
 # an extension to sloth to select a tile by choosing a point
 # the size of the tile is the defined as tile_w, tile_h
@@ -10,6 +10,109 @@ from PyQt4.Qt import Qt
 from sloth.items import ItemInserter, BaseItem, RectItem
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
+
+TILE=(96,124)
+TILE_BORDER=(5,2)
+
+class TileItemInserter(ItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        ItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+
+        self._init_pos = None
+        self._imgw = 3000
+        self._imgh = 3000
+        self._tile = TILE
+        self._tile_border = TILE_BORDER
+        self._point_as_centre=False
+
+    def formTile(self,x,y):
+        tile = self._tile
+        tw_2=tile[0]/2
+        th_2=tile[1]/2
+        if self._point_as_centre:
+            return QRectF(x-tw_2, y-th_2, tile[0], tile[1])
+        else:
+            bb = self.findTile(x=x,y=y)
+            if bb is not None:
+                # print x,y,bb
+                return QRectF(bb[0], bb[1], float(tile[0]), float(tile[1]))
+            else:
+                return QRectF(x-tw_2, y-th_2, tile[0], tile[1])            
+
+    def findTile(self,x,y):
+        xmin=-1
+        ymin=-1
+        tw=self._tile[0]
+        th=self._tile[1]
+        tbw=self._tile_border[0]
+        tbh=self._tile_border[1]
+        imgw=self._imgw
+        imgh=self._imgh
+        tws = tw + tbw
+        ths = th + tbh
+        for x1 in range(0,imgw,tws):
+            if x>=x1 and x<x1+tws:
+                xmin=x1
+                break
+        for y1 in range(0,imgh,ths):
+            if y>=y1 and y<y1+ths:
+                ymin=y1
+                break
+        if xmin>-1 and ymin>-1:
+            ans=[xmin,ymin,xmin+tw,ymin+th]
+            return ans
+
+
+    def mousePressEvent(self, event, image_item):
+        pos = event.scenePos()
+        self._init_pos = pos
+        rect = self.formTile(pos.x(), pos.y())
+        # print pos.x(),pos.y(), rect        
+        # self._item.setPen(self.pen())
+        # self._scene.addItem(self._item)
+        self._ann.update({self._prefix + 'x': rect.x(),
+                          self._prefix + 'y': rect.y(),
+                          self._prefix + 'width': rect.width(),
+                          self._prefix + 'height': rect.height()})
+        self._ann.update(self._default_properties)
+        if self._commit:
+            image_item.addAnnotation(self._ann)
+        self.annotationFinished.emit()
+        self._init_pos = None
+        self._item = None
+        event.accept()
+
+    # def mouseMoveEvent(self, event, image_item):
+    #     if self._item is not None:
+    #         assert self._init_pos is not None
+    #         rect = QRectF(self._init_pos, event.scenePos()).normalized()
+    #         self._item.setRect(rect)
+
+    #     event.accept()
+
+    def setDim(self, w,h):
+        self._imgw=w
+        self._imgh=h
+
+    def setTile(self, tile):
+        self._tile=tile        
+        # self.update()
+
+    def setTileBorder(self,tile_border):
+        self._tile_border=tile_border
+
+    def tile(self):
+        return self._tile
+
+    def tile_border(self):
+        return self._tile_border
+
+class TileItemInserter_centred(TileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        TileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._point_as_centre=True
 
 #__________________________________________________________________________________________
 #

@@ -11,19 +11,30 @@ class RectColorWithLabel(RectItem):
 
     #defaultAutoTextKeys = ['x', 'y']
 
-    def __init__(self, model_item=None, prefix="", parent=None, color=Qt.black,label=""):
+    def __init__(self, model_item=None, prefix="", parent=None, color=Qt.black,label="",pen_width=2):
         RectItem.__init__(self, model_item, prefix, parent)
         self._userColor=color
         self._userLabel=label
         self.setColor(self._userColor)
         self._text_item.setHtml(self._userLabel)
-        self.setPen(QPen(self._userColor, 2))
+        self._pen_width = pen_width
+        self.setPen(QPen(self._userColor, pen_width))
 
     def __call__(self, *args, **kwargs):
         newitem = RectItem(*args, **kwargs)
         newitem.setColor(self._userColor)
         newitem._text_item.setHtml(self._userLabel)
+        newitem.setPen(QPen(self._userColor, self._pen_width))
         return newitem
+
+    def paint(self, painter, option, widget=None):
+        RectItem.paint(self, painter, option, widget)
+        pen = self.pen()
+        if self.isSelected():
+            pen.setStyle(Qt.DashLine)
+        pen.setWidth ( self._pen_width )
+        painter.setPen(pen)
+        painter.drawRect(self.boundingRect())
 
 # colors={1:'ColorDarkRed',2:'ColorDarkGreen',4:'ColorDarkBlue',6:'ColorDarkGray',8:'ColorRed',10:'ColorGreen',12:'ColorBlue',14:'ColorDarkCyan',16:'ColorBlack'}
 '''
