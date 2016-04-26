@@ -120,11 +120,12 @@ class TileItemInserter_centred(TileItemInserter):
 #   It is similar to PointItem and RectItem
 #   Additionally, it has color, label, pen_width and tile width/height as input parameters
 #   Paint module is also different by drawing a rectangle instead of ellipse
+#
+#   WARNING: TileItem can select and display Tile correctly, 
+#               however it saves the tile as x,y
+#            Use TileItemInserter for inserter and RectColorWithLabel for item instead
 #__________________________________________________________________________________________
 class TileItem(BaseItem):
-    """
-    Visualization item for points.
-    """
 
     def __init__(self, model_item=None, prefix="", parent=None, color=Qt.red, pen_width=2, label="",tile=(10,10),tile_border=(0,0), point_as_centre=False):
         BaseItem.__init__(self, model_item, prefix, parent)
