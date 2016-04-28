@@ -1,0 +1,33 @@
+[
+    {
+        "annotations": [
+            {
+                "class": "point",
+                "x": 102.0,
+                "y": 136.0
+            },
+            {
+                "class": "pole",
+                "x": 110.0,
+                "y": 168.0
+            },
+            {
+                "class": "tree",
+                "x": 126.0,
+                "y": 216.0
+            },
+            {
+                "class": "sky_cloud",
+                "x": 335.0,
+                "y": 136.0
+            },
+            {
+                "class": "sky_cloud",
+                "x": 338.0,
+                "y": 209.0
+            }
+        ],
+        "class": "image",
+        "filename": "test.jpg"
+    }
+]

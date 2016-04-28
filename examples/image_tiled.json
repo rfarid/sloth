@@ -1,0 +1,623 @@
+[
+    {
+        "annotations": [
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 0.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 0.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 126.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 126.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 126.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 0.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 0.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 0.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 0.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 0.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 378.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 378.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 378.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 378.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 378.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 0.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 126.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 252.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 252.0
+            }
+        ],
+        "class": "image",
+        "filename": "image_tiled_14.jpg"
+    },
+    {
+        "annotations": [
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 252.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 252.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 504.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 504.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 504.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 378.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 378.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 378.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 378.0
+            },
+            {
+                "class": "sign",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 504.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 378.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 808.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 707.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 606.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 505.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 0.0
+            },
+            {
+                "class": "tree",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 0.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 378.0
+            },
+            {
+                "class": "road_light",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 909.0,
+                "y": 252.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 202.0,
+                "y": 504.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 303.0,
+                "y": 504.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 504.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 101.0,
+                "y": 126.0
+            },
+            {
+                "class": "power_line",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 0.0,
+                "y": 126.0
+            },
+            {
+                "class": "pole",
+                "height": 124.0,
+                "width": 96.0,
+                "x": 404.0,
+                "y": 504.0
+            }
+        ],
+        "class": "image",
+        "filename": "image_tiled_15.jpg"
+    }
+]
