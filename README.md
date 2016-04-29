@@ -24,4 +24,4 @@ This fork includes some additional changes. For example:
 4. Adding various versions of __FixedRatioRect__ including colored and labeled options.
 5. Adding __Cross__ item similar to Point item by showing the selected point as a size-controlled coloured cross with a proper label
 6. Adding __Tile__ item __inserter__ similar to Point item by showing the corresponding rectangular tile
-7. Adding __Tile__ item __bulk inserter__: forming tile__s__ based on selected rectangle
+7. Adding __Tile__ item __bulk inserter__: forming __tiles__ based on selected rectangle
