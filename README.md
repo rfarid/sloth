@@ -21,6 +21,7 @@ This fork includes some additional changes. For example:
 1. Adding "Add Images" icon to the UI to load more than one image at once.
 2. Fixing the issue of setting proper file path while saving.
 3. Some modification to guarantee that the Rectangle Coordinates are not out of image __boundary__.
-3. Adding various versions of __FixedRatioRect__ including colored and labeled options.
-4. Adding __Cross__ item similar to Point item by showing the selected point as a size-controlled coloured cross with a proper label
-5. Adding __Tile__ item __inserter__ similar to Point item by showing the corresponding rectangular tile
+4. Adding various versions of __FixedRatioRect__ including colored and labeled options.
+5. Adding __Cross__ item similar to Point item by showing the selected point as a size-controlled coloured cross with a proper label
+6. Adding __Tile__ item __inserter__ similar to Point item by showing the corresponding rectangular tile
+7. Adding __Tile__ item __bulk inserter__: forming tile__s__ based on selected rectangle
