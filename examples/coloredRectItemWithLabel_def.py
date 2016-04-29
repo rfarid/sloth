@@ -25,16 +25,23 @@ class RectColorWithLabel(RectItem):
         newitem.setColor(self._userColor)
         newitem._text_item.setHtml(self._userLabel)
         newitem.setPen(QPen(self._userColor, self._pen_width))
+        newitem._userLabel=self._userLabel
+        # print "*::",newitem._model_item.getAnnotations()
+        # # print "*::",newitem._model_item.data()
+        # newitem._model_item.update({'class':newitem._userLabel})
+        # print "*::",newitem._model_item.getAnnotations()
+        # # print "*::",newitem._model_item.data()        
         return newitem
 
-    def paint(self, painter, option, widget=None):
-        RectItem.paint(self, painter, option, widget)
-        pen = self.pen()
-        if self.isSelected():
-            pen.setStyle(Qt.DashLine)
-        pen.setWidth ( self._pen_width )
-        painter.setPen(pen)
-        painter.drawRect(self.boundingRect())
+    # def paint(self, painter, option, widget=None):
+    #     # self._ann.update({self._prefix + 'class': self._class_name})
+    #     # RectItem.paint(self, painter, option, widget)
+    #     pen = self.pen()
+    #     if self.isSelected():
+    #         pen.setStyle(Qt.DashLine)
+    #     pen.setWidth ( self._pen_width )
+    #     painter.setPen(pen)
+    #     painter.drawRect(self.boundingRect())
 
 # colors={1:'ColorDarkRed',2:'ColorDarkGreen',4:'ColorDarkBlue',6:'ColorDarkGray',8:'ColorRed',10:'ColorGreen',12:'ColorBlue',14:'ColorDarkCyan',16:'ColorBlack'}
 '''
