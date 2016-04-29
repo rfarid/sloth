@@ -7,12 +7,35 @@
 #
 from PyQt4.QtGui import QPen
 from PyQt4.Qt import Qt
-from sloth.items import ItemInserter, BaseItem, RectItem
+from sloth.items import ItemInserter, BaseItem, RectItem, RectItemInserter
 from PyQt4.QtGui import *
 from PyQt4.Qt import *
 
 TILE=(96,124)
 TILE_BORDER=(5,2)
+IMG_W=3000
+IMG_H=3000
+
+def findTile_base(x,y,imgw,imgh,tile,tile_border):
+    xmin=-1
+    ymin=-1
+    tw=tile[0]
+    th=tile[1]
+    tbw=tile_border[0]
+    tbh=tile_border[1]
+    tws = tw + tbw
+    ths = th + tbh
+    for x1 in range(0,imgw,tws):
+        if x>=x1 and x<x1+tws:
+            xmin=x1
+            break
+    for y1 in range(0,imgh,ths):
+        if y>=y1 and y<y1+ths:
+            ymin=y1
+            break
+    if xmin>-1 and ymin>-1:
+        ans=[xmin,ymin,xmin+tw,ymin+th]
+        return ans
 
 class TileItemInserter(ItemInserter):
 
@@ -20,8 +43,8 @@ class TileItemInserter(ItemInserter):
         ItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
 
         self._init_pos = None
-        self._imgw = 3000
-        self._imgh = 3000
+        self._imgw = IMG_W
+        self._imgh = IMG_H
         self._tile = TILE
         self._tile_border = TILE_BORDER
         self._point_as_centre=False
@@ -41,28 +64,26 @@ class TileItemInserter(ItemInserter):
                 return QRectF(x-tw_2, y-th_2, tile[0], tile[1])            
 
     def findTile(self,x,y):
-        xmin=-1
-        ymin=-1
-        tw=self._tile[0]
-        th=self._tile[1]
-        tbw=self._tile_border[0]
-        tbh=self._tile_border[1]
-        imgw=self._imgw
-        imgh=self._imgh
-        tws = tw + tbw
-        ths = th + tbh
-        for x1 in range(0,imgw,tws):
-            if x>=x1 and x<x1+tws:
-                xmin=x1
-                break
-        for y1 in range(0,imgh,ths):
-            if y>=y1 and y<y1+ths:
-                ymin=y1
-                break
-        if xmin>-1 and ymin>-1:
-            ans=[xmin,ymin,xmin+tw,ymin+th]
-            return ans
+        return findTile_base(x,y,self._imgw,self._imgh,self._tile,self._tile_border)
 
+    def mousePressEvent_simulate(self, event, x,y, image_item,class_name):
+        rect = self.formTile(x, y)
+        # print pos.x(),pos.y(), rect        
+        # self._item.setPen(self.pen())
+        # self._scene.addItem(self._item)
+        self._ann.update({self._prefix + 'class': class_name,
+                          self._prefix + 'x': rect.x(),            
+                          self._prefix + 'y': rect.y(),
+                          self._prefix + 'width': rect.width(),
+                          self._prefix + 'height': rect.height()})
+        self._ann.update(self._default_properties)
+        if self._commit:
+            image_item.addAnnotation(self._ann)
+        self.annotationFinished.emit()
+        self._init_pos = None
+        self._item = None
+
+        event.accept()
 
     def mousePressEvent(self, event, image_item):
         pos = event.scenePos()
@@ -113,7 +134,132 @@ class TileItemInserter_centred(TileItemInserter):
     def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
         TileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
         self._point_as_centre=True
+#__________________________________________________________________________________________
+#
+# BulkTileItem
+class BulkTileItemInserter(RectItemInserter):
 
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        RectItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+
+        self._init_pos = None
+        self._imgw = IMG_W
+        self._imgh = IMG_H
+        self._tile = TILE
+        self._tile_border = TILE_BORDER
+        self._point_as_centre=False
+        self._labeltool=labeltool
+        self._scene=scene
+        self._class_name="pole"
+
+    def mousePressEvent(self, event, image_item):
+        pos = event.scenePos()
+        self._init_pos = pos
+        self._item = QGraphicsRectItem(QRectF(pos.x(), pos.y(), 0, 0))
+        self._item.setPen(self.pen())
+        self._scene.addItem(self._item)
+        event.accept()
+
+    def mouseMoveEvent(self, event, image_item):
+        if self._item is not None:
+            assert self._init_pos is not None
+            rect = QRectF(self._init_pos, event.scenePos()).normalized()
+            self._item.setRect(rect)
+
+        event.accept()
+
+    def mouseReleaseEvent(self, event, image_item):
+        if self._item is not None:
+            if self._item.rect().width() > 1 and \
+               self._item.rect().height() > 1:
+                rect = self._item.rect()
+                rx=int(rect.x())
+                ry=int(rect.y())
+                rw=int(rect.width())
+                rh=int(rect.height())
+                # upper bound
+                rxw=rx+rw+self.tile_border()[0]
+                ryh=ry+rh+self.tile_border()[1]
+                # step
+                bw=self.tile()[0]+self.tile_border()[0]
+                bh=self.tile()[1]+self.tile_border()[1]
+                # consider initial x,y to update the upper bound
+                init=findTile_base(rx,ry,self._imgw,self._imgh,self._tile,self._tile_border)
+                initx=abs(rx-init[0])
+                inity=abs(ry-init[1])
+                rxw+=initx
+                ryh+=inity
+                # going through covering tiles
+                for x in range(rx,rxw,bw):
+                    for y in range(ry,ryh,bh):
+                        new_item = TileItemInserter(self._labeltool,self._scene)
+                        new_item.mousePressEvent_simulate(event,x,y,image_item,self._class_name)
+            self._scene.removeItem(self._item)
+            self.annotationFinished.emit()
+            self._init_pos = None
+            self._item = None
+
+        event.accept()
+
+    def allowOutOfSceneEvents(self):
+        return True
+
+    def abort(self):
+        if self._item is not None:
+            self._scene.removeItem(self._item)
+            self._item = None
+            self._init_pos = None
+        ItemInserter.abort(self)
+
+    def setDim(self, w,h):
+        self._imgw=w
+        self._imgh=h
+
+    def setTile(self, tile):
+        self._tile=tile        
+        # self.update()
+
+    def setTileBorder(self,tile_border):
+        self._tile_border=tile_border
+
+    def tile(self):
+        return self._tile
+
+    def tile_border(self):
+        return self._tile_border
+
+class BulkTileItemInserter_tree(BulkTileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        BulkTileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._class_name="tree"
+
+
+class BulkTileItemInserter_sign(BulkTileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        BulkTileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._class_name="sign"
+
+
+class BulkTileItemInserter_road_light(BulkTileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        BulkTileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._class_name="road_light"
+
+
+class BulkTileItemInserter_power_line(BulkTileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        BulkTileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._class_name="power_line"
+
+class BulkTileItemInserter_misc(BulkTileItemInserter):
+
+    def __init__(self, labeltool, scene, default_properties=None, prefix="", commit=True):
+        BulkTileItemInserter.__init__(self, labeltool, scene, default_properties, prefix, commit)
+        self._class_name="misc"
 #__________________________________________________________________________________________
 #
 # TileItem
